@@ -79,13 +79,13 @@ const totalRaised = GAMES_JSON.reduce((total, games) => {
 }, 0);
 
 // set inner HTML using template literal
-raisedCard.innerHTML = `Total Raised: $${totalRaised.toLocaleString("en-US")}`;
+raisedCard.innerHTML = `$${totalRaised.toLocaleString("en-US")}`;
 
 
 // grab number of games card and set its inner HTML
 const gamesCard = document.getElementById("num-games");
 
-gamesCard.innerHTML = `Number of Games: ${GAMES_JSON.length}`;
+gamesCard.innerHTML = `${GAMES_JSON.length}`;
 
 
 /*************************************************************************************
@@ -153,7 +153,7 @@ let numUnfunded = GAMES_JSON.filter((games) => {
 });
 
 // create a string that explains the number of unfunded games using the ternary operator
-let unfundedStr = `There's a total of ${numUnfunded.length == 1 ? numUnfunded.length+" underfunded game." : numUnfunded.length+" underfunded games."}`;
+let unfundedStr = `A total of $${totalRaised.toLocaleString("en-US")} has been raised for `+GAMES_JSON.length+` games. Currently ${numUnfunded.length == 1 ? numUnfunded.length+" game remains" : numUnfunded.length+" games remain"} unfunded. We need your help funding these amazing games!`;
 
 // create a new DOM element containing the template string and append it to the description container
 let newPara = document.createElement("p");
@@ -174,7 +174,17 @@ const sortedGames =  GAMES_JSON.sort( (item1, item2) => {
 });
 
 // use destructuring and the spread operator to grab the first and second games
+const spreadGames = [...sortedGames];
 
 // create a new element to hold the name of the top pledge game, then append it to the correct element
+const firstGameName = spreadGames[0].name;
+let firstGameNamePara = document.createElement("p");
+firstGameNamePara.innerText = firstGameName;
 
+firstGameContainer.append(firstGameNamePara);
 // do the same for the runner up item
+const secondNameGame = spreadGames[1].name;
+let secondGameNamePara = document.createElement("p");
+secondGameNamePara.innerText = secondNameGame;
+
+secondGameContainer.append(secondGameNamePara);
